@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "gptbookmaker"
+version = "0.1.0"
+description = ""
+authors = ["ethanlchristensen <ethanlchristensen@outlook.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+openai = "^1.10.0"
+flask = "^3.0.1"
+python-dotenv = "^1.0.1"
+bruhcolor = "^0.0.64"
+
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.29.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
