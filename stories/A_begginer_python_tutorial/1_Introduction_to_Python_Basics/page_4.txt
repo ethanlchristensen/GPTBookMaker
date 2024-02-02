@@ -1,0 +1,10 @@
+Story Type: A begginer python tutorial
+Chapter Title: **Introduction to Python Basics**
+
+The following week, Professor Rodriguez introduced the class to the world of functions and modules in Python. With a gleam in his eye, he explained how functions could streamline their code, making it more organized and efficient. The students eagerly took notes as he demonstrated how to define functions, pass arguments, and return values. 
+
+As the lecture progressed, the professor delved into the concept of modules, explaining how they could import pre-written code to extend the functionality of their programs. The students were fascinated by the idea of tapping into a vast library of modules that could simplify complex tasks with just a few lines of code.
+
+For the hands-on portion of the class, each student was tasked with creating a function that could calculate the area of a circle. Excitement filled the room as they put their newfound knowledge to the test, debugging errors and fine-tuning their functions. By the end of the session, the once-intimidating idea of functions and modules had transformed into a powerful toolset that the students were eager to wield in their Python projects.
+
+With a sense of accomplishment, the students packed up their laptops, their minds already buzzing with ideas on how to implement functions and modules in their next programming assignment. Little did they know that their journey into the world of Python was just beginning, with even more exciting concepts waiting to be explored in the weeks to come.

@@ -1,0 +1,10 @@
+Story Type: A begginer python tutorial
+Chapter Title: **Introduction to Python Basics**
+
+The students, with their eyes fixed on the screens displaying lines of code, delved deeper into the world of Python. The instructor, a seasoned programmer, guided them through the intricacies of variables and data types. With each explanation, the students' faces lit up with understanding, eager to apply their newfound knowledge to solve coding challenges.
+
+As the lesson unfolded, the students were tasked with creating a simple program to calculate the area of various shapes. Excitement filled the room as they typed furiously, testing their codes and eagerly sharing their results with one another. Some had already moved on to experimenting with different data types, pushing the boundaries of what they thought was possible with Python.
+
+Throughout the session, the students not only grasped the technical aspects but also developed a sense of camaraderie, helping each other debug errors and brainstorming creative solutions. The atmosphere buzzed with a mix of collaboration and friendly competition, driving everyone to push their coding skills to new heights.
+
+By the end of the class, the once-intimidating concepts of variables and data types had transformed into familiar tools in the students' coding arsenal. As they packed up their laptops, a sense of accomplishment lingered in the air, setting the stage for even more exciting challenges and discoveries in their Python journey.
