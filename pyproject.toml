@@ -11,6 +11,10 @@ openai = "^1.10.0"
 flask = "^3.0.1"
 python-dotenv = "^1.0.1"
 bruhcolor = "^0.0.64"
+requests = "^2.31.0"
+python-docx = "^1.1.0"
+docx2pdf = "^0.1.8"
+spire-doc = "^12.1.0"
 
 
 [tool.poetry.group.dev.dependencies]
