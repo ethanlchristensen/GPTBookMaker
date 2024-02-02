@@ -11,3 +11,5 @@ In `main.ipynb`, update the `story_type` and `target_audience` with what you wha
 ### Notes
 
 Is rough at recognizing the previous storyline - will be fixed, thanks!
+
+Need Word installed on computer to work to get PDF. Otherwise this will fail and we will just have docx, no problem!
