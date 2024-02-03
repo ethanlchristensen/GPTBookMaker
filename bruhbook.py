@@ -108,9 +108,15 @@ class BruhBook:
             user_prompt (str): _description_
             api_type (str, optional): _description_. Defaults to "generate".
             image_path (str | None, optional): _description_. Defaults to None.
+            model (str | None, optional): _description_. Defaults to None.
 
         Raises:
-            InvalidOpenAIPrompterType: _description_
+            UnhandledExceptionError: _description_
+            MissingParameterError: _description_
+            InvalidParameterValueError: _description_
+
+        Returns:
+            _type_: _description_
         """
 
         if api_type == "generate":
@@ -130,7 +136,20 @@ class BruhBook:
 
         elif api_type == "image":
             if image_path:
-                pass
+                try:
+                    response = self.__openai_client.images.generate(
+                        model=model if model else self.__image_model,
+                        prompt=user_prompt,
+                        size="512x512",
+                        quality="standard",
+                        n=1,
+                    )
+                    image_url = response.data[0].url
+                    image_data = requests.get(image_url).content
+                    with open(image_path + "/cover_art.png", "wb") as image_file:
+                        image_file.write(image_data)
+                except Exception as e:
+                    raise UnhandledExceptionError(str(e))
             else:
                 raise MissingParameterError("image_path")
         else:
