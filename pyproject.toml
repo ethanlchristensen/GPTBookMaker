@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "gptbookmaker"
+name = "bruhbook"
 version = "0.1.0"
 description = ""
 authors = ["ethanlchristensen <ethanlchristensen@outlook.com>"]
