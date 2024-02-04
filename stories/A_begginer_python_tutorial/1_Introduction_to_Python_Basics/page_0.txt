@@ -1,8 +1,0 @@
-Story Type: A begginer python tutorial
-Chapter Title: **Introduction to Python Basics**
-
-As the college students delved deeper into the world of Python, the concept of variables and data types began to take shape. The instructor, a seasoned programmer, explained how variables acted as containers to store data, allowing for easy access and manipulation. With a twinkle in their eyes, the students grasped the significance of assigning values to variables and the flexibility it offered in programming.
-
-With newfound knowledge, the class eagerly dived into the practical aspect of coding. They embarked on their first task - creating a simple program to calculate the area of a circle. Armed with their understanding of variables, they defined the necessary components: the radius, the constant value of pi, and the formula for calculating the area. As lines of code filled their screens, the students marveled at how a few keystrokes could command the computer to perform complex calculations.
-
-As the session drew to a close, the instructor encouraged the students to explore further, to experiment with different variables and data types, and to push the boundaries of their newfound Python skills. With a mix of excitement and determination, the students left the class, eager to continue their Python journey and unlock the endless possibilities that coding had to offer.
