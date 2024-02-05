@@ -19,7 +19,12 @@ from bruhbook.bruhbookerrors import (
 
 
 class BruhBook:
-    def __init__(self, api_key: str | None = None, create_cover_image: bool = False):
+    def __init__(
+        self,
+        api_key: str | None = None,
+        create_cover_image: bool = False,
+        wipe_files: bool = False,
+    ):
         """Constructor for BruhBook
 
         Args:
@@ -43,6 +48,7 @@ class BruhBook:
         self.__image_model = "dall-e-3" if self.__check_for_dalle_3() else "dall-e-2"
         self.__create_cover_image = create_cover_image
         self.__story_outline = None
+        self.__wipe_files = wipe_files
         self.__prompts = {
             "image_prompt_creator_prompt": {
                 "system": "\nYou are an expert image prompt creator. You create prompts for people that will be used to create images with tools like DALL-E-3 or MidJourney.\nThese prompts are used to create cover art for books. You will be provided what the book is about and the target audience.\n- You will be given what the story is about surrounded in four hashtags (####) (e.g. #### [Book info here] ####)\n- You will be given the target audience of the book surrounded in four percent symbols (%%%%) (e.g. %%%% 5 - 7 year olds %%%%)\n\nReturn back a prompt that can be used with DALL-E-2 or Midjourney that would create a cover art for this book. Make sure it is detailed! Make sure to focus on the outcome of the entire picture, not individual attributes of the image.\n",
@@ -89,9 +95,7 @@ class BruhBook:
         self.__generation_model = model
 
     def __check_for_dalle_3(self):
-        return "dall-e-3" in [
-            model.id for model in self.__openai_client.models.list()
-        ]
+        return "dall-e-3" in [model.id for model in self.__openai_client.models.list()]
 
     def __openai_prompter(
         self,
@@ -267,7 +271,7 @@ class BruhBook:
             else:
                 print("ERROR")
 
-        return story_outline
+        self.__story_outline = story_outline
 
     def save_to_pdf(self, base_path: str, story_type: str) -> None:
 
@@ -275,7 +279,7 @@ class BruhBook:
             system_prompt=self.__prompts["title_creator_prompt"]["system"],
             user_prompt=self.__prompts["title_creator_prompt"]["user"].replace(
                 self.__prompts["title_creator_prompt"]["variables"][0], story_type
-            )
+            ),
         )
 
         main_title_sub = re.sub(r"[^A-Za-z0-9 ]", "", main_title).replace(" ", "_")
@@ -311,11 +315,17 @@ class BruhBook:
             os.remove(f"{base_path}/{main_title_sub}.docx")
         except Exception as e:
             print(e)
-        
-        print(bc(f"Removing '{base_path}/<chapter folders>', keeping PDF and Cover Art", color=196))
-        for path_name in os.listdir(f"{base_path}"):
-            if os.path.isdir(f"{base_path}\{path_name}"):
-                shutil.rmtree(f"{base_path}\{path_name}")
+
+        if self.__wipe_files:
+            print(
+                bc(
+                    f"Removing '{base_path}/<chapter folders>', keeping PDF and Cover Art",
+                    color=196,
+                )
+            )
+            for path_name in os.listdir(f"{base_path}"):
+                if os.path.isdir(f"{base_path}\{path_name}"):
+                    shutil.rmtree(f"{base_path}\{path_name}")
 
     def __chapter_page_generator(
         self,
@@ -375,9 +385,7 @@ class BruhBook:
             last_paragraph,
         )
 
-    def story_generator(
-        self, story_type: str, target_audience: str, story_outline: dict[str, list[str]]
-    ) -> None:
+    def story_generator(self, story_type: str, target_audience: str) -> None:
         cleaned_story_type = re.sub(r"[^A-Za-z0-9 ]", "", story_type).replace(" ", "_")
 
         if not os.path.exists("./stories"):
@@ -400,8 +408,8 @@ class BruhBook:
         chapter_number = 0
         completed_chapters = ""
 
-        for chapter_num, chapter_val in enumerate(story_outline.items()):
-            last_chapter = chapter_num == len(story_outline) - 1
+        for chapter_num, chapter_val in enumerate(self.story_outline.items()):
+            last_chapter = chapter_num == len(self.story_outline) - 1
             chapter, chapter_points = chapter_val
             chapter_number += 1
             previous_chapter_knowledge = ""
