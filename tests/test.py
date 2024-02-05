@@ -3,6 +3,8 @@ import sys
 
 current_directroy = os.getcwd()
 sys.path.append(current_directroy + "/bruhbook")
+# # sys.path.append(current_directroy + "/bruhbook/bruhbook.py")
+# # sys.path.append(current_directroy + "/bruhbook/bruhbookerrors.py")
 
 from bruhbook import BruhBook
 
@@ -11,7 +13,7 @@ target_audience = "mature adults"
 
 bb = BruhBook(create_cover_image=True)
 
-story_outline = bb.generate_story_outline(
+bb.generate_story_outline(
     story_type=story_type,
     target_audience=target_audience
 )
@@ -19,6 +21,5 @@ story_outline = bb.generate_story_outline(
 bb.story_generator(
     story_type=story_type,
     target_audience=target_audience,
-    story_outline=story_outline
 )
     

@@ -24,19 +24,21 @@ Here is a basic example of how to use `bruhbook` to generate a short story with 
 from bruhbook.bruhbook import BruhBook
 
 bb = BruhBook(
-    create_cover_image=True
+    create_cover_image=True,
+    wipe_files=False
 )
 
 story_type = "A cyberpunk knight fighting his way through hell. Flames, lava, dark, alien like plasma monsters"
 target_audience = "Mature Adults"
 
-bb.story_generator(
-    story_type=story_type,
-    target_audience=target_audience,
-    story_outline=bb.generate_story_outline(
+bb.generate_story_outline(
         story_type=story_type,
         target_audience=target_audience
-    )
+)
+
+bb.story_generator(
+    story_type=story_type,
+    target_audience=target_audience
 )
 ```
 
