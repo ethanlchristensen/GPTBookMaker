@@ -23,7 +23,9 @@ Here is a basic example of how to use `bruhbook` to generate a short story with 
 ```py
 from bruhbook.bruhbook import BruhBook
 
+# alternativley, you can use a .env file with a `OPENAI_API_KEY` variable set to your key
 bb = BruhBook(
+    api_key=<openai_api_key>,
     create_cover_image=True,
     wipe_files=False
 )
