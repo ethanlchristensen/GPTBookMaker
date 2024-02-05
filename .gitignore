@@ -162,3 +162,5 @@ stories/
 ignore.txt
 *.bat
 help.*
+
+test.py
