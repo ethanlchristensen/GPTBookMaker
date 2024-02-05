@@ -47,6 +47,7 @@ class BruhBook:
         self.__generation_model = "gpt-3.5-turbo-0125"
         self.__image_model = "dall-e-3" if self.__check_for_dalle_3() else "dall-e-2"
         self.__create_cover_image = create_cover_image
+        self.__show_image_prompt = True
         self.__story_outline = None
         self.__wipe_files = wipe_files
         self.__prompts = {
@@ -84,7 +85,7 @@ class BruhBook:
 
         self.__check_for_folders()
 
-    def __check_for_folders(self):
+    def __check_for_folders(self) -> None:
         """_summary_"""
 
         stories_path = self.__home_directory + "/stories"
@@ -94,7 +95,10 @@ class BruhBook:
     def set_generation_model(self, model: str):
         self.__generation_model = model
 
-    def __check_for_dalle_3(self):
+    def set_show_image_prompt(self, show_image_prompt: bool) -> None:
+        self.__show_image_prompt = show_image_prompt
+
+    def __check_for_dalle_3(self) -> bool:
         return "dall-e-3" in [model.id for model in self.__openai_client.models.list()]
 
     def __openai_prompter(
@@ -196,7 +200,7 @@ class BruhBook:
             book_info=story_type, target_audience=target_audience
         )
 
-        if show_prompt:
+        if self.__show_image_prompt:
             print(cover_art_prompt)
 
         self.__image(user_prompt=cover_art_prompt, image_path=image_path, model=model)
@@ -442,13 +446,12 @@ class BruhBook:
             completed_chapters += f"Previously Completed Chapter Title - {chapter}\n"
 
         self.save_to_pdf(base_path=base_path, story_type=cleaned_story_type)
-        
+
     def generate_story(self, story_type: str, target_audience: str | None = "Anyone"):
         self.generate_story_outline(
-            story_type=story_type,
-            target_audience=target_audience
+            story_type=story_type, target_audience=target_audience
         )
-        
+
         self.story_generator(
             story_type=story_type,
             target_audience=target_audience,
