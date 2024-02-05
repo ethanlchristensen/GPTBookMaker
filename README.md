@@ -1,15 +1,57 @@
-# GPTBookMaker
+# BruhBook
 
-A notebook to create stories using ChatGPT
+`bruhbook` is a Python package designed to interface with OpenAI, allowing users to create captivating short stories complete with custom cover art. This tool is perfect for writers, creators, and anyone interested in generating unique narratives with visually appealing covers.
 
-I used poetry to package management
+## Features
 
-### Usage
+- Generate short stories based on specific themes and target audiences.
+- Automatically create cover art for the stories.
+- Customizable story generation to suit different genres and styles.
 
-In `main.ipynb`, update the `story_type` and `target_audience` with what you what and run all cells.
+## Installation
 
-### Notes
+To install `bruhbook`, simply run:
 
-Is rough at recognizing the previous storyline - will be fixed, thanks!
+```bash
+pip install bruhbook
+```
 
-Need Word installed on computer to work to get PDF. Otherwise this will fail and we will just have docx, no problem!
+## Usage
+
+Here is a basic example of how to use `bruhbook` to generate a short story with a cover image:
+
+```py
+from bruhbook.bruhbook import BruhBook
+
+bb = BruhBook(
+    create_cover_image=True
+)
+
+story_type = "A cyberpunk knight fighting his way through hell. Flames, lava, dark, alien like plasma monsters"
+target_audience = "Mature Adults"
+
+bb.story_generator(
+    story_type=story_type,
+    target_audience=target_audience,
+    story_outline=bb.generate_story_outline(
+        story_type=story_type,
+        target_audience=target_audience
+    )
+)
+```
+
+## Requirements
+
+- Python 3.11 or later
+
+## Documentation
+
+🚧 Under Construciton 🚧
+
+## Contributing
+
+🚧 Under Construction 🚧
+
+## License
+
+`bruhbook` is licensed under the Apache License. See the [LICENSE](LICENSE) file for more details.

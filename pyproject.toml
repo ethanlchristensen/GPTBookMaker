@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "gptbookmaker"
-version = "0.1.0"
+name = "bruhbook"
+version = "1.0.2"
 description = ""
 authors = ["ethanlchristensen <ethanlchristensen@outlook.com>"]
 readme = "README.md"
