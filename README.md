@@ -30,7 +30,7 @@ bb = BruhBook(
     wipe_files=False
 )
 
-story_type = "A cyberpunk knight fighting his way through hell. Flames, lava, dark, alien like plasma monsters"
+story_type = "A cyberpunk knight fighting his way through a hellish landscape. Flames, lava, dark, alien like plasma monsters"
 target_audience = "Mature Adults"
 
 bb.generate_story_outline(
