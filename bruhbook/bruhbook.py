@@ -86,19 +86,38 @@ class BruhBook:
         self.__check_for_folders()
 
     def __check_for_folders(self) -> None:
-        """_summary_"""
+        """check if the necessary folders are created to saves 
+        stories to."""
 
         stories_path = self.__home_directory + "/stories"
         if not os.path.exists(stories_path):
             os.mkdir(stories_path)
 
     def set_generation_model(self, model: str):
+        """function to set what model is used for text generation
+
+        Args:
+            model (str): model name
+        """
         self.__generation_model = model
 
     def set_show_image_prompt(self, show_image_prompt: bool) -> None:
+        """function to set the '__show_image_prompt' variable since
+        it is not set with the contructor
+
+        Args:
+            show_image_prompt (bool): True of False
+        """
         self.__show_image_prompt = show_image_prompt
 
     def __check_for_dalle_3(self) -> bool:
+        """function to check to see if the users api key
+        supports dall-e-3
+
+        Returns:
+            bool: True of False
+        """
+        
         return "dall-e-3" in [model.id for model in self.__openai_client.models.list()]
 
     def __openai_prompter(
@@ -109,14 +128,17 @@ class BruhBook:
         image_path: str | None = None,
         model: str | None = None,
     ):
-        """_summary_
+        """function to faciliate calls to openai
 
         Args:
-            system_prompt (str): _description_
-            user_prompt (str): _description_
-            api_type (str, optional): _description_. Defaults to "generate".
-            image_path (str | None, optional): _description_. Defaults to None.
-            model (str | None, optional): _description_. Defaults to None.
+            system_prompt (str): system prompt to use (generate)
+            user_prompt (str): user prompt to use (generate or image)
+            api_type (str, optional): do we want to create text or image?
+            Defaults to "generate".
+            image_path (str | None, optional): path to save the image to.
+            Defaults to None.
+            model (str | None, optional): model to use for text / image generation.
+            Defaults to None.
 
         Raises:
             UnhandledExceptionError: _description_
@@ -169,6 +191,20 @@ class BruhBook:
             )
 
     def improve_image_prompt(self, book_info: str, target_audience: str) -> str:
+        """function to generate an image prompt we can use to
+        create the cover art for the story
+
+        Args:
+            book_info (str): information about the book
+            target_audience (str): target audience of the book
+
+        Raises:
+            UnhandledExceptionError: unahndled exceptions
+
+        Returns:
+            str: prompt to use to create the cover art for the book
+        """
+        
         try:
             improved_prompt = self.chat(
                 system_prompt=self.__prompts["image_prompt_creator_prompt"]["system"],
@@ -196,6 +232,18 @@ class BruhBook:
         model: str | None = None,
         show_prompt: bool = False,
     ) -> None:
+        """function to facilitare creating the cover art
+
+        Args:
+            story_type (str): short description of the story
+            target_audience (str): target audience of the story
+            image_path (str): path to save the image too
+            model (str | None, optional): model to create the image with.
+            Defaults to None.
+            show_prompt (bool, optional): should we should the prompt used to create the image?.
+            Defaults to False.
+        """
+        
         cover_art_prompt = self.improve_image_prompt(
             book_info=story_type, target_audience=target_audience
         )
@@ -208,14 +256,15 @@ class BruhBook:
     def chat(
         self, system_prompt: str, user_prompt: str, model: str | None = None
     ) -> str:
-        """_summary_
+        """function to interface with __openai_prompter to get a chat
+        completition
 
         Args:
-            system_prompt (str): _description_
-            user_prompt (str): _description_
+            system_prompt (str): system prompt for chat completion
+            user_prompt (str): user prompt for chat completion
 
         Returns:
-            str: _description_
+            str: the generated response from openai
         """
 
         return self.__openai_prompter(
@@ -228,12 +277,14 @@ class BruhBook:
     def __image(
         self, user_prompt: str, image_path: str, model: str | None = None
     ) -> None:
-        """_summary_
+        """function to interface with __openai_prompter to generate
+        a image
 
         Args:
-            user_prompt (str): _description_
-            image_path (str): _description_
-            model (str | None, optional): _description_. Defaults to None.
+            user_prompt (str): prompt to create the image with
+            image_path (str): path to save the image too
+            model (str | None, optional): model to use to create the image. Defaults to None.
+            defaults to "dall-e-3" under the hood
         """
 
         self.__openai_prompter(
@@ -245,11 +296,30 @@ class BruhBook:
         )
 
     def get_client(self) -> openai.OpenAI:
+        """funtion to get this objects openai client
+
+        Returns:
+            openai.OpenAI: openai client
+        """
+        
         return self.__openai_client
 
     def generate_story_outline(
         self, story_type: str, target_audience: str
     ) -> dict[str, list[str]]:
+        """function to call openai to get a story outline of
+        chapters and main chapter points. Will parse the 
+        openai response down into a dict that represents the
+        story outline.
+
+        Args:
+            story_type (str): short description of the story
+            target_audience (str): target audience for the story
+
+        Returns:
+            dict[str, list[str]]: dict representation of the story line
+        """
+        
         openai_story_outline = self.chat(
             system_prompt=self.__prompts["story_outline_generator"]["system"],
             user_prompt=self.__prompts["story_outline_generator"]["user"]
@@ -278,6 +348,12 @@ class BruhBook:
         self.__story_outline = story_outline
 
     def save_to_pdf(self, base_path: str, story_type: str) -> None:
+        """function to save the generated story files to a pdf file
+
+        Args:
+            base_path (str): base path where the story files are stored
+            story_type (str): short description of the story
+        """
 
         main_title = self.chat(
             system_prompt=self.__prompts["title_creator_prompt"]["system"],
@@ -345,6 +421,29 @@ class BruhBook:
         last_chapter: bool = False,
         last_page: bool = False,
     ) -> str:
+        """generates the next page in the chapter. Uses various knowledge
+        to generate this page such as chapter point, chapter title, the paragraph
+        from the previous chapter, etc . . .
+
+        Args:
+            story_type (str): short description of the story
+            target_audience (str): target audience of the story
+            chapter_title (str): title of the chapter
+            chapter_point (str): current chapter point to make page for
+            previous_knowledge (str): pervious chapter points we have processed
+            completed_chapters (str): list of completed chapters so far
+            last_paragraph (str): last paragraph from last chapter page
+            chapter_save_path (str): path to save the chapter page too
+            page_number (int): current page we are on for the chapter
+            last_chapter (bool, optional): are we on the last chapter.
+            Defaults to False.
+            last_page (bool, optional): are we on the last page of whole story.
+            Defaults to False.
+
+        Returns:
+            str: contents of the chapter page
+        """
+        
         if previous_knowledge == "":
             previous_knowledge = "No Previous Knowledge."
         if completed_chapters == "":
@@ -390,6 +489,14 @@ class BruhBook:
         )
 
     def story_generator(self, story_type: str, target_audience: str) -> None:
+        """function to facilate the main process of creating a story
+        and organizing the files.
+
+        Args:
+            story_type (str): short description of the story
+            target_audience (str): target audience of the story
+        """
+        
         cleaned_story_type = re.sub(r"[^A-Za-z0-9 ]", "", story_type).replace(" ", "_")
 
         if not os.path.exists("./stories"):
@@ -448,6 +555,15 @@ class BruhBook:
         self.save_to_pdf(base_path=base_path, story_type=cleaned_story_type)
 
     def generate_story(self, story_type: str, target_audience: str | None = "Anyone"):
+        """over arching function to call all required functions to
+        generate a story
+
+        Args:
+            story_type (str): short description of the story
+            target_audience (str | None, optional): target audience of the story.
+            Defaults to "Anyone".
+        """
+        
         self.generate_story_outline(
             story_type=story_type, target_audience=target_audience
         )
