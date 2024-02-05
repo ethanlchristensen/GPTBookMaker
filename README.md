@@ -31,14 +31,9 @@ bb = BruhBook(
 )
 
 story_type = "A cyberpunk knight fighting his way through a hellish landscape. Flames, lava, dark, alien like plasma monsters"
-target_audience = "Mature Adults"
+target_audience = "Highschoolers / Adults"
 
-bb.generate_story_outline(
-    story_type=story_type,
-    target_audience=target_audience
-)
-
-bb.story_generator(
+bb.generate_story(
     story_type=story_type,
     target_audience=target_audience
 )
