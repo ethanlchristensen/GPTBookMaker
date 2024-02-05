@@ -408,8 +408,8 @@ class BruhBook:
         chapter_number = 0
         completed_chapters = ""
 
-        for chapter_num, chapter_val in enumerate(self.story_outline.items()):
-            last_chapter = chapter_num == len(self.story_outline) - 1
+        for chapter_num, chapter_val in enumerate(self.__story_outline.items()):
+            last_chapter = chapter_num == len(self.__story_outline) - 1
             chapter, chapter_points = chapter_val
             chapter_number += 1
             previous_chapter_knowledge = ""
