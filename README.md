@@ -34,8 +34,8 @@ story_type = "A cyberpunk knight fighting his way through a hellish landscape. F
 target_audience = "Mature Adults"
 
 bb.generate_story_outline(
-        story_type=story_type,
-        target_audience=target_audience
+    story_type=story_type,
+    target_audience=target_audience
 )
 
 bb.story_generator(
