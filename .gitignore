@@ -160,3 +160,4 @@ cython_debug/
 #.idea/
 stories/
 ignore.txt
+*.bat

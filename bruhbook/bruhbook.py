@@ -10,7 +10,7 @@ from docx2pdf import convert
 from bruhcolor import bruhcolored as bc
 from dotenv import load_dotenv
 
-from bruhbookerrors import (
+from bruhbook.bruhbookerrors import (
     ApiKeyNotFoundError,
     InvalidParameterValueError,
     UnhandledExceptionError,

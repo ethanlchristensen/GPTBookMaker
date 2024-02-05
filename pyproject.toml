@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bruhbook"
-version = "0.1.0"
+version = "1.0.2"
 description = ""
 authors = ["ethanlchristensen <ethanlchristensen@outlook.com>"]
 readme = "README.md"
