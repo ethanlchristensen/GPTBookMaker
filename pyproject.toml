@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bruhbook"
-version = "1.0.2"
+version = "1.0.11"
 description = ""
 authors = ["ethanlchristensen <ethanlchristensen@outlook.com>"]
 readme = "README.md"
@@ -19,6 +19,12 @@ spire-doc = "^12.1.0"
 
 [tool.poetry.group.dev.dependencies]
 ipykernel = "^6.29.0"
+
+
+[[tool.poetry.source]]
+name = "bruhbook"
+url = "https://test.pypi.org/legacy/"
+priority = "supplemental"
 
 [build-system]
 requires = ["poetry-core"]

@@ -285,7 +285,8 @@ class BruhBook:
 
         title = os.path.basename(base_path)
         doc.add_paragraph(main_title, "Title")
-        doc.add_picture(f"{base_path}/cover_art.png", width=Inches(6))
+        if self.create_cover_art:
+            doc.add_picture(f"{base_path}/cover_art.png", width=Inches(6))
         doc.add_page_break()
         for chapter_folder in os.listdir(base_path):
             chapter_path = os.path.join(base_path, chapter_folder)
