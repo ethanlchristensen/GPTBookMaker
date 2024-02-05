@@ -442,3 +442,14 @@ class BruhBook:
             completed_chapters += f"Previously Completed Chapter Title - {chapter}\n"
 
         self.save_to_pdf(base_path=base_path, story_type=cleaned_story_type)
+        
+    def generate_story(self, story_type: str, target_audience: str | None = "Anyone"):
+        self.generate_story_outline(
+            story_type=story_type,
+            target_audience=target_audience
+        )
+        
+        self.story_generator(
+            story_type=story_type,
+            target_audience=target_audience,
+        )
