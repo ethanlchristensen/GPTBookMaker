@@ -201,7 +201,7 @@ class BruhBook:
         )
 
         if self.__show_image_prompt:
-            print(cover_art_prompt)
+            print(bc("Prompt for cover art: " + cover_art_prompt, color=202))
 
         self.__image(user_prompt=cover_art_prompt, image_path=image_path, model=model)
 
